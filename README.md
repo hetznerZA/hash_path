@@ -1,8 +1,12 @@
+[![Gem Version](https://badge.fury.io/rb/hash_path.svg)](http://badge.fury.io/rb/hash_path) [![Build Status](https://travis-ci.org/hetznerZA/hash_path.svg?branch=master)](https://travis-ci.org/hetznerZA/hash_path) [![Dependency Status](https://gemnasium.com/hetznerZA/hash_path.svg)](https://gemnasium.com/hetznerZA/hash_path)
+
 # HashPath
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hash_path`. To experiment with that code, run `bin/console` for an interactive prompt.
+A module of utility methods for hash path queries.
 
-TODO: Delete this and the text above, and describe your gem
+## Documentation
+
+For documentation of the released gem, see [rubydoc.info](http://www.rubydoc.info/gems/hash_path).
 
 ## Installation
 
@@ -20,10 +24,6 @@ Or install it yourself as:
 
     $ gem install hash_path
 
-## Usage
-
-TODO: Write usage instructions here
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -32,5 +32,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hash_path.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hetznerZA/hash_path.
 

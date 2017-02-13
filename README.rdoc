@@ -1,0 +1,14 @@
+= HashPath
+
+Provides utility methods for hash path queries.
+
+Hash paths can be expressed as lists of keys of these types:
+
+* Object.
+* String.
+* Symbol.
+* Eithe String or Symbol.
+
+The methods are provided by the module {HashPath}.
+
+The implementation is covered by an rspec test suite in the {https://github.com/hetznerZA/hash_path HashPath repo}.
