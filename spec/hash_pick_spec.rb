@@ -1,8 +1,8 @@
 require "spec_helper"
 
-require "hash_path"
+require "hash_pick"
 
-describe HashPath do
+describe HashPick do
 
   subject { described_class }
 

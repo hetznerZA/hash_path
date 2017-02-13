@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'hash_path/version'
+require 'hash_pick/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "hash_path"
-  spec.version       = HashPath::VERSION
+  spec.name          = "hash_pick"
+  spec.version       = HashPick::VERSION
   spec.authors       = ["Sheldon Hearn"]
   spec.email         = ["sheldonh@starjuice.net"]
 
   spec.summary       = %q{Hash path query}
   spec.description   = %q{A hash path query support library}
-  spec.homepage      = "https://github.com/hetznerZA/hash_path"
+  spec.homepage      = "https://github.com/hetznerZA/hash_pick"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

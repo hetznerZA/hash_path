@@ -11,7 +11,7 @@
 #
 # @example Indifferent hash path
 #
-#   require "hash_path"
+#   require "hash_pick"
 #
 #   dict = {
 #     people: {
@@ -29,10 +29,10 @@
 #     }
 #   }
 #
-#   HashPath[dict, %w{people sheldon contacts email}] # -> "sheldonh@starjuice"
-#   HashPath[dict, %w{people charles contacts email}] # -> nil
+#   HashPick[dict, %w{people sheldon contacts email}] # -> "sheldonh@starjuice"
+#   HashPick[dict, %w{people charles contacts email}] # -> nil
 #
-module HashPath
+module HashPick
 
   ##
   # Fetch value from dictionary using string or symbol key path
