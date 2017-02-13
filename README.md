@@ -1,19 +1,19 @@
-[![Gem Version](https://badge.fury.io/rb/hash_path.svg)](http://badge.fury.io/rb/hash_path) [![Build Status](https://travis-ci.org/hetznerZA/hash_path.svg?branch=master)](https://travis-ci.org/hetznerZA/hash_path) [![Dependency Status](https://gemnasium.com/hetznerZA/hash_path.svg)](https://gemnasium.com/hetznerZA/hash_path)
+[![Gem Version](https://badge.fury.io/rb/hash_pick.svg)](http://badge.fury.io/rb/hash_pick) [![Build Status](https://travis-ci.org/hetznerZA/hash_pick.svg?branch=master)](https://travis-ci.org/hetznerZA/hash_pick) [![Dependency Status](https://gemnasium.com/hetznerZA/hash_pick.svg)](https://gemnasium.com/hetznerZA/hash_pick)
 
-# HashPath
+# HashPick
 
 A module of utility methods for hash path queries.
 
 ## Documentation
 
-For documentation of the released gem, see [rubydoc.info](http://www.rubydoc.info/gems/hash_path).
+For documentation of the released gem, see [rubydoc.info](http://www.rubydoc.info/gems/hash_pick).
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'hash_path'
+gem 'hash_pick'
 ```
 
 And then execute:
@@ -22,7 +22,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install hash_path
+    $ gem install hash_pick
 
 ## Development
 
@@ -32,5 +32,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/hetznerZA/hash_path.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hetznerZA/hash_pick.
 
