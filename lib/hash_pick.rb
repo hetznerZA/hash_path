@@ -3,8 +3,8 @@
 ##
 # Fetch a value from a nested dictionary
 #
-# Provides methods for fetching a value from a nested dictionary (an object that implements +include?+ and +fetch+),
-# using a key path expressed as a list (an object that implements +inject+).
+# Provides methods for fetching a value from a nested dictionary (an object structure whose root and branch nodes implement +[]+),
+# using a key path expressed as a list (an +Enumerable+ object whose +each+ method yields a path key).
 #
 # The key path is iterated. In each iteration, the key is looked up in the dictionary, and the value found is used
 # as the dictionary for the next iteration. Lookup failure immediately returns nil.
@@ -53,13 +53,7 @@ module HashPick
     assert_non_nil_path_keys(path)
 
     pick(hash, path) do |acc, p|
-      if acc.include?(p.to_sym)
-        acc.fetch(p.to_sym)
-      elsif acc.include?(p.to_s)
-        acc[p.to_s]
-      else
-        throw :break
-      end
+      acc[p.to_sym].nil? ? acc[p.to_s] : acc[p.to_sym]
     end
   end
 
@@ -87,17 +81,11 @@ module HashPick
   #     }
   #   }
   #
-  #   HashPick.pick(dict, [:sheldon, :first_name]) do |p, k|
-  #     throw :break unless p[:live] and p.include?(k)
-  #     p[k]
-  #   end
+  #   HashPick.pick(dict, [:sheldon, :first_name]) { |p, k| p[k] if p[:live] }
   #   # => "Sheldon"
   #
-  #   HashPick.pick(dict, [:charles, :first_name]) do |p, k|
-  #     throw :break unless p[:live] and p.include?(k)
-  #     p[k]
-  #   end
-  #   # => "Hearn"
+  #   HashPick.pick(dict, [:charles, :first_name]) { |p, k| p[k] if p[:live] }
+  #   # => nil
   #
   # @param [Hash] hash
   #   the dictionary to apply the +path+ to.
@@ -129,7 +117,7 @@ module HashPick
     end
 
     def dictionary?(hash)
-      hash.respond_to?(:include?) && hash.respond_to?(:fetch)
+      hash.respond_to?(:[])
     end
 
     def assert_non_nil_path_keys(path)
@@ -137,7 +125,7 @@ module HashPick
     end
 
     def assert_enumerable_path(path)
-      raise ArgumentError.new("path is not enumerable") unless path.respond_to?(:inject)
+      raise ArgumentError.new("path is not enumerable") unless path.is_a?(Enumerable)
     end
 
   end
