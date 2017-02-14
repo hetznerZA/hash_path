@@ -35,12 +35,21 @@ describe HashPick do
         expect(subject.object(dictionary, [parent_x, child_y])).to eql(dictionary[parent_x][child_y])
       end
 
+      it "returns the dictionary itself for an empty path" do
+        expect(subject.object(dictionary, [])).to eql(dictionary)
+      end
+
       it "returns nil for a top-level lookup failure" do
         expect(subject.object(dictionary, ["missing"])).to be_nil
       end
 
       it "returns nil for a nested lookup failure" do
         expect(subject.object(dictionary, [parent_x, "missing"])).to be_nil
+      end
+
+      it "supports nil as a key" do
+        dictionary = {parent_x => {nil => {child_x => "parent_x-nil-child_x"}}}
+        expect(subject.object(dictionary, [parent_x, nil, child_x])).to eql(dictionary[parent_x][nil][child_x])
       end
     end
 
@@ -70,12 +79,21 @@ describe HashPick do
         expect(subject.symbol(dictionary, %w[parent_x child_y])).to eql(dictionary[:parent_x][:child_y])
       end
 
+      it "returns the dictionary itself for an empty path" do
+        expect(subject.symbol(dictionary, [])).to eql(dictionary)
+      end
+
       it "returns nil for a top-level lookup failure" do
         expect(subject.symbol(dictionary, %w[missing])).to be_nil
       end
 
       it "returns nil for a nested lookup failure" do
         expect(subject.symbol(dictionary, %w[parent_x missing])).to be_nil
+      end
+
+      it "does not support nil as a key (raises error)" do
+        dictionary = {parent_x: {nil => {child_x: "parent_x-nil-child_x"}}}
+        expect { subject.symbol(dictionary, [:parent_x, nil, :child_x]) }.to raise_error(ArgumentError, /nil.*path/)
       end
     end
 
@@ -105,12 +123,21 @@ describe HashPick do
         expect(subject.string(dictionary, %w[parent_x child_y])).to eql(dictionary["parent_x"]["child_y"])
       end
 
+      it "returns the dictionary itself for an empty path" do
+        expect(subject.string(dictionary, [])).to eql(dictionary)
+      end
+
       it "returns nil for a top-level lookup failure" do
         expect(subject.string(dictionary, %w[missing])).to be_nil
       end
 
       it "returns nil for a nested lookup failure" do
         expect(subject.string(dictionary, %w[parent_x missing])).to be_nil
+      end
+
+      it "does not support nil as a key (raises error)" do
+        dictionary = {"parent_x" => {nil => {"child_x" => "parent_x-nil-child_x"}}}
+        expect { subject.string(dictionary, ["parent_x", nil, "child_x"]) }.to raise_error(ArgumentError, /nil.*path/)
       end
     end
 
@@ -140,6 +167,10 @@ describe HashPick do
         expect(subject.indifferent(dictionary, %w[parent_x child_y])).to eql(dictionary[:parent_x]["child_y"])
       end
 
+      it "returns the dictionary itself for an empty path" do
+        expect(subject.indifferent(dictionary, [])).to eql(dictionary)
+      end
+
       it "returns nil for a top-level lookup failure" do
         expect(subject.indifferent(dictionary, %w[missing])).to be_nil
       end
@@ -147,6 +178,25 @@ describe HashPick do
       it "returns nil for a nested lookup failure" do
         expect(subject.indifferent(dictionary, %w[parent_x missing])).to be_nil
       end
+
+      it "does not support nil as a key (raises error)" do
+        dictionary = {parent_x: {nil => {"child_x" => "parent_x-nil-child_x"}}}
+        expect { subject.indifferent(dictionary, ["parent_x", nil, "child_x"]) }.to raise_error(ArgumentError, /nil.*path/)
+      end
+    end
+
+  end
+
+  describe ".pick(hash, path)" do
+
+    it "iterates the path over the hash" do
+      dictionary = {foo: {bar: "payload"}}
+      block_received = []
+      subject.pick(dictionary, [:foo, :bar]) { |p, k| block_received << [p, k]; p[k] }
+      expect(block_received).to eql([
+        [dictionary, :foo],
+        [dictionary[:foo], :bar]
+      ])
     end
 
   end

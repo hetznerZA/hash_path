@@ -7,7 +7,9 @@ Hash paths can be expressed as lists of keys of these types:
 * Object.
 * String.
 * Symbol.
-* Eithe String or Symbol.
+* Either String or Symbol.
+
+In addition, the general form of hash path query iteration is available in support of arbitrary path query semantics.
 
 The methods are provided by the module {HashPick}.
 
