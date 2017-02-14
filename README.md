@@ -6,7 +6,7 @@ A module of utility methods for hash path queries.
 
 ## Documentation
 
-For documentation of the released gem, see [rubydoc.info](http://www.rubydoc.info/gems/hash_pick).
+For documentation, follow the _Documentation_ link of the released gem on [rubygems.org](https://rubygems.org/gems/hash_pick).
 
 ## Installation
 
