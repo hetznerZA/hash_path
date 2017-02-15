@@ -61,8 +61,10 @@ module HashPick
   # General form of hash path iteration
   #
   # Passes to +block+, the dictionary and hash key for each iteration of the hash path, using
-  # the return value of the block as the dictionary for the next iteration, or as the return
-  # value of the last iteration. If the block throws +:break+, iteration is aborted.
+  # the return value of the block as the dictionary for the next iteration, or in the case of
+  # the last iteration, as the return value. If the block returns a non-dictionary in any but
+  # the last iteration, or if the block throws +:break+, iteration is aborted and +nil+ is
+  # returned.
   #
   # @example Complex hash path semantics
   #
@@ -93,6 +95,7 @@ module HashPick
   #   an ordered list of path keys.
   # @return [Object] the value of the last iteration.
   # @return [nil] if +block+ throws +:break+ in any iteration.
+  # @return [nil] if +block+ returns a non-dictionary for any but the last iteration.
   # @raise [ArgumentError] if +hash+ isn't a dictionary.
   # @raise [ArgumentError] if +path+ isn't a list.
   #
