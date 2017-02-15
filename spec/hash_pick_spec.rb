@@ -207,4 +207,21 @@ describe HashPick do
 
   end
 
+  it "only requires that path be enumerable" do
+    path = double("Path")
+    allow(path).to receive(:each).and_yield(:foo).and_yield(:bar)
+    path.extend(Enumerable)
+
+    expect(subject[{foo: {bar: "payload"}}, path]).to eql("payload")
+  end
+
+  it "only requires that hash implement Hash#[]" do
+    foo = double("Hash")
+    bar = double("Hash")
+    allow(foo).to receive(:[]).with(:foo).and_return(bar)
+    allow(bar).to receive(:[]).with(:bar).and_return("payload")
+
+    expect(subject[foo, %w[foo bar]]).to eql("payload")
+  end
+
 end
