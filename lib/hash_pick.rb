@@ -165,7 +165,7 @@ module HashPick
   #
   def self.symbol(hash, path)
     assert_non_nil_path_keys(path)
-    object(hash, path.map(&:to_sym))
+    pick(hash, path) { |acc, p| acc[p.to_sym] }
   end
 
   ##
@@ -185,7 +185,7 @@ module HashPick
   #
   def self.string(hash, path)
     assert_non_nil_path_keys(path)
-    object(hash, path.map(&:to_s))
+    pick(hash, path) { |acc, p| acc[p.to_s] }
   end
 
 end
