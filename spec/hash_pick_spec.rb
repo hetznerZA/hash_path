@@ -47,6 +47,11 @@ describe HashPick do
         expect(subject.object(dictionary, [parent_x, "missing"])).to be_nil
       end
 
+      it "is not fooled by a String where a dictionary was expected" do
+        dictionary = {"foo" => "xbarx"} # "xbarx"["bar"] returns "bar"
+        expect(subject.object(dictionary, %w{foo bar})).to be_nil
+      end
+
       it "supports nil as a key" do
         dictionary = {parent_x => {nil => {child_x => "parent_x-nil-child_x"}}}
         expect(subject.object(dictionary, [parent_x, nil, child_x])).to eql(dictionary[parent_x][nil][child_x])
@@ -199,6 +204,16 @@ describe HashPick do
       ])
     end
 
+    it "can be used to ignore Hash default values" do
+      dictionary = {foo: Hash.new(:default).tap { |h| h[:bar] = "payload" }}
+
+      # Not what we want:
+      expect(subject[dictionary, %w{foo missing}]).to eql(:default)
+
+      # But we can explicitly check for inclusion:
+      expect(subject.pick(dictionary, [:foo, :missing]) { |p, k| p[k] if p.include?(k) }).to be_nil
+    end
+
   end
 
   describe ".[hash, path]" do
@@ -215,11 +230,12 @@ describe HashPick do
     expect(subject[{foo: {bar: "payload"}}, path]).to eql("payload")
   end
 
-  it "only requires that hash implement Hash#[]" do
+  it "only requires that hash be enumerable that implements Hash#[]" do
     foo = double("Hash")
     bar = double("Hash")
     allow(foo).to receive(:[]).with(:foo).and_return(bar)
     allow(bar).to receive(:[]).with(:bar).and_return("payload")
+    [foo, bar].each { |path| path.extend(Enumerable) }
 
     expect(subject[foo, %w[foo bar]]).to eql("payload")
   end

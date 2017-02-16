@@ -3,7 +3,8 @@
 ##
 # Fetch a value from a nested dictionary
 #
-# Provides methods for fetching a value from a nested dictionary (an object structure whose root and branch nodes implement +[]+),
+# Provides methods for fetching a value from a nested dictionary
+# (an object structure whose root and branch nodes are +Enumerable+ and implement +[]+),
 # using a key path expressed as a list (an +Enumerable+ object whose +each+ method yields a path key).
 #
 # The key path is iterated. In each iteration, the key is looked up in the dictionary, and the value found is used
@@ -120,7 +121,7 @@ module HashPick
     end
 
     def dictionary?(hash)
-      hash.respond_to?(:[])
+      hash.is_a?(Enumerable) and hash.respond_to?(:[])
     end
 
     def assert_non_nil_path_keys(path)
